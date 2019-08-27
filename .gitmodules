@@ -1,0 +1,3 @@
+[submodule "uv_hal"]
+	path = uv_hal
+	url = https://github.com/usevolt/uv_hal.git

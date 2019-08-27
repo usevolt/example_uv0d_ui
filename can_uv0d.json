@@ -1,0 +1,135 @@
+{
+	"DEV": "UV0D",
+	
+	"NODEID": 0x0D,
+	
+	"EMCY": [
+		"GENERAL_EMCY_MSG"
+	],
+	
+	"DEFINES": [
+		{
+			"name": "DEV NAME LEN",
+			"value": 32
+		},
+		
+		{
+			"name": "LANG",
+			"type": "CANOPEN_UNSIGNED8",
+			"value": [
+				"EN",
+				"FI"
+			]
+		}
+	],
+	
+	"OBJ_DICT": [
+		{
+			"name": "Dev Type",
+			"index": 0x2000,
+			"subindex": 0,
+			"type": "CANOPEN_UNSIGNED8",
+			"permissions": "CANOPEN_RO",
+			"dataptr": "&dev.dev_type",
+			"value": 0x0D
+		},
+		{
+			"name": "Dev Name",
+			"index": 0x2001,
+			"stringsize": "DEV NAME LEN",
+			"type": "CANOPEN_STRING",
+			"permissions": "CANOPEN_RW",
+			"dataptr": "dev.dev_name",
+			"default": "UV0D Display"
+		},
+		{
+			"name": "Lang",
+			"index": 0x2002,
+			"subindex": 0,
+			"type": "CANOPEN_UNSIGNED8",
+			"permissions": "CANOPEN_RW",
+			"dataptr": "&dev.lang",
+			"min": "LANG_EN",
+			"max": "LANG_FI",
+			"default": "LANG_EN"
+		},
+		{
+			"name": "Hour counter",
+			"index": 0x2005,
+			"subindex": 0,
+			"type": "CANOPEN_UNSIGNED32",
+			"permissions": "CANOPEN_RO",
+			"dataptr": "&dev.hours_dh",
+			"min": 0,
+			"max": 4294967295,
+			"default": 0
+		},
+		{
+			"name": "Array example",
+			"index": 0x2022,
+			"arraysize": 3,
+			"type": "CANOPEN_ARRAY8",
+			"permissions": "CANOPEN_RW",
+			"dataptr": "&dev.array_example",
+			"data": [
+				{
+					"name": "value1",
+					"min": 0,
+					"max": 127,
+					"default": 0
+				},
+				{
+					"name": "value2",
+					"min": 0,
+					"max": 127,
+					"default": 0
+				},
+				{
+					"name": "value3",
+					"min": 0,
+					"max": 127,
+					"default": 0
+				}
+			]
+		}
+	],
+	
+	"RXPDO": [
+		{
+			"cobid": "CANOPEN_RXPDO1_ID + 0x3",
+			"transmission": "CANOPEN_PDO_TRANSMISSION_ASYNC",
+			"mappings": [
+				{
+					"param": "Array example",
+					"subindex": 1
+				}
+			]
+		},
+		{
+			"cobid": "CANOPEN_RXPDO2_ID + 0x3 + CANOPEN_PDO_DISABLED",
+			"transmission": "CANOPEN_PDO_TRANSMISSION_ASYNC",
+			"mappings": [
+			]
+		}
+	],
+	"TXPDO": [
+		{
+			"cobid": "CANOPEN_TXPDO1_ID + UV0D_NODEID",
+			"transmission": "CANOPEN_PDO_TRANSMISSION_ASYNC",
+			"inhibittime": 20,
+			"eventtimer": 100,
+			"mappings": [
+				{
+					"param": "Dev type"
+				},
+				{
+					"param": "Hour Counter"
+				},
+				{
+					"param": "Array example",
+					"subindex": 2
+				}
+			]
+		}
+	]
+}
