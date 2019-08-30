@@ -94,7 +94,7 @@ all: $(BUILDDIR)/$(UVCANDB_FILE) $(BINARY)
 	$(MAKE) post-build
 
 $(BUILDDIR)/$(UVCANDB_FILE): $(UVCANDB)
-	uvcan --db $(UVCANDB) --exporth ./inc/$(UVCANDB_FILE) --exportc ./src/$(UVCANDB_FILE)
+	uvcan --db $(UVCANDB) --incdest ./inc/ --srcdest ./src/ --export $(UVCANDB_FILE)
 	@mkdir -p $(BUILDDIR)
 	@touch $(BUILDDIR)/$(UVCANDB_FILE)
 
